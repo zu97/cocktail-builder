@@ -31,6 +31,8 @@ export class EditCocktailComponent implements OnInit {
       recipe: new FormControl('', Validators.required),
       image: new FormControl('', Validators.required)
     });
+
+    this.addIngredient();
   }
 
   getIngredients() {
@@ -49,6 +51,10 @@ export class EditCocktailComponent implements OnInit {
   }
 
   removeIngredient(index: number) {
+    if (index === 0) {
+      return;
+    }
+
     const ingredients = <FormArray>this.form.get('ingredients');
     ingredients.removeAt(index);
   }

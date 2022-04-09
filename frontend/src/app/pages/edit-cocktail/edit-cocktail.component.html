@@ -45,7 +45,11 @@
               Field is required
             </mat-error>
           </mat-form-field>
-          <button type="button" mat-stroked-button (click)="removeIngredient(i)">Remove</button>
+          <button type="button"
+                  mat-stroked-button
+                  (click)="removeIngredient(i)"
+                  *ngIf="i !== 0"
+          >Remove</button>
         </div>
       </div>
       <button type="button"
