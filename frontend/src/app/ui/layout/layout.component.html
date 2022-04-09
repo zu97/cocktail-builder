@@ -4,11 +4,38 @@
                  fxLayout="row"
                  fxLayoutAlign="space-between center"
     >
-      <span>Cocktails</span>
-      <nav>
-        <a routerLink="/login" mat-button>Login with Facebook</a>
+      <a routerLink="/">Cocktails</a>
+      <nav *appIsAuth="false; else userNav">
+        <button type="button"
+                mat-button
+                (click)="login()"
+        >Login with Google</button>
       </nav>
     </mat-toolbar>
-    <ng-content></ng-content>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<ng-template #userNav>
+  <div class="hello-user"
+       fxLayout="row"
+       fxLayoutGap="16px"
+       fxLayoutAlign="center center"
+  >
+    <img [src]="apiUrl + '/uploads/' + (user | async)?.avatar"
+         [alt]="(user | async)?.displayName"
+         mat-card-avatar
+    />
+    <span>Hello, <strong>{{ (user | async)?.displayName }}</strong>!</span>
+  </div>
+  <nav>
+    <a routerLink="/cocktails/my" mat-button>My cocktails</a>
+    <a routerLink="/cocktails/create" mat-button>Create cocktail</a>
+    <button type="button"
+            mat-button
+            (click)="logout()"
+    >Logout</button>
+  </nav>
+</ng-template>
