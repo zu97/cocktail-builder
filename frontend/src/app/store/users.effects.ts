@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HelpersService } from '../services/helpers.service';
 import { SocialAuthService } from 'angularx-social-login';
+import { Store } from '@ngrx/store';
+import { AppState } from './types';
+import { fetchCocktailsRequest } from './cocktails.actions';
 
 @Injectable()
 export class UsersEffects {
@@ -14,6 +17,7 @@ export class UsersEffects {
   constructor(
     private actions: Actions,
     private router: Router,
+    private store: Store<AppState>,
     private socialsService: SocialAuthService,
     private helpersService: HelpersService,
     private usersService: UsersService,
@@ -37,6 +41,7 @@ export class UsersEffects {
       tap(() => {
         void this.router.navigate(['/']);
         void this.socialsService.signOut();
+        this.store.dispatch(fetchCocktailsRequest({ my: false }));
         this.helpersService.openSnackBar('Logout successful');
       }),
     )),
