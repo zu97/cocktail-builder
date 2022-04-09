@@ -1,0 +1,95 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+  <h1>Add new cocktail</h1>
+</div>
+
+<mat-card>
+  <form (ngSubmit)="onSubmit()"
+        fxLayout="column"
+        #f=ngForm
+        [formGroup]="form"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text"
+             formControlName="name"
+             matInput
+      />
+      <mat-error *ngIf="checkFieldError('name', 'required')">
+        Field is required
+      </mat-error>
+    </mat-form-field>
+
+    <div formArrayName="ingredients">
+      <div fxLayout="row"
+           fxLayoutGap="16px"
+           *ngFor="let _ of getIngredients(); let i = index"
+      >
+        <div fxLayoutGap="16px" [formGroupName]="i">
+          <mat-form-field appearance="outline">
+            <mat-label>Ingredient name</mat-label>
+            <input type="text"
+                   formControlName="ingredient"
+                   matInput
+            />
+            <mat-error *ngIf="checkIngredientError(i, 'ingredient', 'required')">
+              Field is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Amount</mat-label>
+            <input type="string"
+                   formControlName="amount"
+                   matInput
+            />
+            <mat-error *ngIf="checkIngredientError(i, 'amount', 'required')">
+              Field is required
+            </mat-error>
+          </mat-form-field>
+          <button type="button" mat-stroked-button (click)="removeIngredient(i)">Remove</button>
+        </div>
+      </div>
+      <button type="button"
+              mat-raised-button
+              class="add-ingredient"
+              (click)="addIngredient()"
+      >
+        Add ingredient
+      </button>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Recipe</mat-label>
+      <textarea formControlName="recipe"
+                matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+      ></textarea>
+      <mat-error *ngIf="checkFieldError('recipe', 'required')">
+        Field is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Image</mat-label>
+      <app-file-input formControlName="image"
+                      accept="image/png, image/gif, image/jpeg"
+      ></app-file-input>
+      <mat-error *ngIf="checkFieldError('image', 'required')">
+        Field is required
+      </mat-error>
+      <mat-error *ngIf="checkFieldError('image', 'accept')">
+        An Image with this extension cannot be uploaded
+      </mat-error>
+    </mat-form-field>
+
+    <button type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="f.invalid || (createLoading | async)"
+    >
+      <app-loader [isLoading]="createLoading | async">
+        Create cocktail
+      </app-loader>
+    </button>
+  </form>
+</mat-card>
