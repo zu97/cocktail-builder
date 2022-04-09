@@ -22,3 +22,16 @@ export interface CocktailData {
   recipe: string;
   image: string;
 }
+
+interface FieldError {
+  message: string;
+}
+
+export interface CocktailError {
+  errors: {
+    name?: undefined | FieldError;
+    ingredients?: undefined | FieldError;
+    recipe?: undefined | FieldError;
+    image?: undefined | FieldError;
+  }
+}
