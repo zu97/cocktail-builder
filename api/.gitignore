@@ -1,0 +1,9 @@
+node_modules
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/john.jpg
+!public/uploads/anna.jpg
+!public/uploads/raffaello.jpg
+!public/uploads/negori.jpg
+!public/uploads/russ.jpg
+!public/uploads/highres.jpg
