@@ -23,6 +23,9 @@
     "@angular/router": "~13.2.0",
     "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
+    "angularx-social-login": "^4.1.0",
+    "ngrx-store-localstorage": "^13.0.1",
+    "ngx-star-rating": "^2.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
