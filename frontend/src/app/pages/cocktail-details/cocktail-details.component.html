@@ -1,0 +1,74 @@
+<app-loader [isLoading]="getLoading | async" size="lg">
+  <div *ngIf="cocktail | async as $cocktail">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+      <h1 fxLayout="row"
+          fxLayoutGap="10px"
+          fxLayoutAlign="center center"
+      >
+        <span>{{ $cocktail.name }}</span>
+        <span *ngIf="!$cocktail.isPublished" class="not-published">Not published</span>
+      </h1>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <ng-container *ngIf="!$cocktail.isPublished">
+          <button type="button"
+                  mat-flat-button
+                  color="primary"
+                  (click)="onPublish()"
+                  *appHasRole="['admin']"
+                  [disabled]="publishLoading | async"
+          >
+            <app-loader [isLoading]="publishLoading | async">
+              Publish
+            </app-loader>
+          </button>
+        </ng-container>
+        <button type="button"
+                mat-flat-button
+                color="warn"
+                (click)="onRemove()"
+                *appHasRole="['admin']"
+                [disabled]="removeLoading | async"
+        >
+          <app-loader [isLoading]="removeLoading | async">
+            Remove
+          </app-loader>
+        </button>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="16px">
+      <mat-card fxLayout="row">
+        <div>
+          <img mat-card-image
+               [src]="apiUrl + '/uploads/' + $cocktail.image"
+               [alt]="$cocktail.name"
+               class="cocktail-img"
+          />
+        </div>
+        <mat-card-content>
+          <mat-card-title>{{ $cocktail.name }}</mat-card-title>
+          <mat-card-content *ngIf="$cocktail.ingredients.length">
+            <p><strong>Rating:</strong> {{ (allRating / votes) || 0 }} ({{ votes }} votes)</p>
+            <p><strong>Ingredients:</strong></p>
+            <ul>
+              <li *ngFor="let ingredient of $cocktail.ingredients">
+                {{ ingredient.ingredient }} - {{ ingredient.amount }}
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-title>Recipe</mat-card-title>
+        <mat-card-content>
+          {{ $cocktail.recipe }}
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card fxLayoutAlign="center" *ngIf="userId">
+        <ngx-star-rating [(ngModel)]="ourRating" (change)="onRate()"></ngx-star-rating>
+      </mat-card>
+    </div>
+  </div>
+</app-loader>

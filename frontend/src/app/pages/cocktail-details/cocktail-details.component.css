@@ -1,0 +1,8 @@
+.cocktail-img {
+  width: auto;
+  height: auto;
+  max-width: 350px;
+  max-height: 350px;
+  margin-right: 16px;
+  margin-bottom: -16px;
+}
