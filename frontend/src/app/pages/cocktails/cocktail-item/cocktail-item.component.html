@@ -1,0 +1,11 @@
+<a [routerLink]="'/cocktails/' + cocktail._id">
+  <mat-card>
+    <img mat-card-image
+         [src]="apiUrl + '/uploads/' + cocktail.image"
+         [alt]="cocktail.name">
+    <mat-card-header fxLayout="column" fxLayoutAlign="center">
+      <mat-card-title>{{ cocktail.name }}</mat-card-title>
+      <span *ngIf="!cocktail.isPublished" class="not-published">Not published</span>
+    </mat-card-header>
+  </mat-card>
+</a>

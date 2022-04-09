@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+  <h1>Cocktails</h1>
+</div>
+
+<app-loader [isLoading]="fetchLoading | async" size="lg">
+  <div fxLayout="row wrap" fxLayoutGap="16px" *ngIf="(cocktails | async)?.length; else emptyData">
+    <app-cocktail-item *ngFor="let cocktail of cocktails | async"
+                       [cocktail]="cocktail"
+    ></app-cocktail-item>
+  </div>
+
+  <ng-template #emptyData>
+    <mat-card fxLayout="row" fxLayoutAlign="center">
+      <mat-card-subtitle>
+        No information available
+      </mat-card-subtitle>
+    </mat-card>
+  </ng-template>
+</app-loader>

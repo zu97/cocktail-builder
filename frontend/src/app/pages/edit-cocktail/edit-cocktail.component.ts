@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
 import { createCocktailRequest } from '../../store/cocktails.actions';
 import { Observable } from 'rxjs';
-import { CocktailData } from '../../models/cocktail.model';
+import { CocktailData, CocktailError } from '../../models/cocktail.model';
 
 @Component({
   selector: 'app-edit-cocktail',
@@ -15,7 +15,7 @@ export class EditCocktailComponent implements OnInit {
   form = new FormGroup({});
 
   createLoading: Observable<boolean>;
-  createError: Observable<null>;
+  createError: Observable<null | CocktailError>;
 
   constructor(
     private store: Store<AppState>,

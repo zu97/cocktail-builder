@@ -1,0 +1,21 @@
+a {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 16px;
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity .3s;
+}
+
+a:hover {
+  opacity: 0.9;
+}
+
+.mat-card {
+  max-width: 250px;
+}
+
+.mat-card-header {
+  text-align: center;
+}
